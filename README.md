@@ -53,7 +53,7 @@ https://github.com/elizaOS/eliza/tree/main/packages/client-telegram
 
 
 
-#PlugIns To be Integrated 
+# PlugIns To be Integrated 
 
 https://github.com/coinbase/cdp-agentkit-nodejs/tree/5d686bbfbc5607d7b7d0f188c8c120d623e5aa32/cdp-agentkit-core
 
