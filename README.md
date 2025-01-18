@@ -61,6 +61,8 @@ https://github.com/elizaOS/eliza/tree/main/packages/plugin-coinbase
 
 https://github.com/elizaOS/eliza/blob/main/packages/plugin-coinbase/src/plugins/massPayments.ts
 
+https://github.com/elizaOS/eliza/blob/main/packages/plugin-goat/src/wallet.ts
+
 ## Edit the character files
 
 Open `src/character.ts` to modify the default character. Uncomment and edit.
