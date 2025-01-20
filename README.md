@@ -1,4 +1,67 @@
-# Eliza
+# AllowMe.ai
+
+AllowMe.ai is an AI-powered educational finance platform that automates allowance distribution based on verified educational achievements. Built on ElizaOS's agent framework and Polygon blockchain.
+
+## 🎯 Overview
+
+AllowMe.ai transforms traditional allowance systems by:
+- Creating AI-verified educational achievements
+- Automating reward distribution via smart contracts
+- Teaching financial literacy through hands-on experience
+- Providing secure parental controls and oversight
+
+## 🛠️ Technical Architecture
+
+- **ElizaOS Integration**
+ - Assessment Agent: Creates and validates educational activities
+ - Reward Agent: Manages automated allowance distribution
+ - Mass Payments Plugin: Handles on-chain transactions
+
+- **Smart Contracts**
+ - Achievement verification
+ - Automated rewards
+ - Parental controls
+ - Spending limits
+
+## 🚀 Features
+
+### For Parents/Trustees
+- Custom educational goal setting
+- Spending parameter controls 
+- Progress monitoring dashboard
+- Transaction oversight
+
+### For Students
+- Educational achievement tracking
+- Digital wallet management
+- Progress visualization
+- Reward history
+
+
+
+## 💻 Integrations 
+
+
+
+
+
+# Client Integrated 
+
+https://github.com/elizaOS/eliza/tree/main/packages/client-telegram
+
+
+
+
+
+# PlugIns To be Integrated 
+
+https://github.com/coinbase/cdp-agentkit-nodejs/tree/5d686bbfbc5607d7b7d0f188c8c120d623e5aa32/cdp-agentkit-core
+
+https://github.com/elizaOS/eliza/tree/main/packages/plugin-coinbase
+
+https://github.com/elizaOS/eliza/blob/main/packages/plugin-coinbase/src/plugins/massPayments.ts
+
+https://github.com/elizaOS/eliza/blob/main/packages/plugin-goat/src/wallet.ts
 
 ## Edit the character files
 
