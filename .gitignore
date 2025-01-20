@@ -5,6 +5,7 @@ dist
 .env
 node_modules
 dist/
+!src/clients/*.ts
 
 db.sqlite
 .idea
