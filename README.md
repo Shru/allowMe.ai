@@ -16,6 +16,7 @@ AllowMe.ai transforms traditional allowance systems by:
  - Assessment Agent: Creates and validates educational activities
  - Reward Agent: Manages automated allowance distribution
  - Mass Payments Plugin: Handles on-chain transactions
+ - Goat-Plugin
 
 - **Smart Contracts**
  - Achievement verification
