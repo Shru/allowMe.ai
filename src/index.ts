@@ -140,7 +140,7 @@ const startAgents = async () => {
   const args = parseArguments();
 
   let charactersArg = args.characters || args.character;
-  let characters = [pyAssist];
+  let characters = [janeBot];
 
   console.log("charactersArg", charactersArg);
   if (charactersArg) {
