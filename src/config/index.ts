@@ -3,7 +3,7 @@ import { Character,  settings, validateCharacterConfig } from "@elizaos/core";
 import fs from "fs";
 import path from "path";
 import yargs from "yargs";
-import { ModelProviderName } from "../types.ts";
+import { ModelProviderName } from "@elizaos/core";
 
 export function parseArguments(): {
   character?: string;
