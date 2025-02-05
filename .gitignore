@@ -6,6 +6,8 @@ dist
 node_modules
 dist/
 !src/clients/*.ts
-
+!src/types/*.ts
+!**/tsup.config.ts
+!packages/plugin-goat/src/*.ts
 db.sqlite
 .idea

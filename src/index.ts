@@ -1,4 +1,14 @@
 import { DirectClient } from "@elizaos/client-direct";
+//import {DirectClient2} from "./directClient2.ts";
+import createGoatPlugin from "@elizaos/plugin-goat";
+
+
+
+
+import { IVideoService } from "@elizaos/core";
+import * as cheerio from 'cheerio';
+import { createRaribleSdk } from "@rarible/sdk"
+import axios from 'axios';
 import {
   AgentRuntime,
   elizaLogger,
@@ -7,6 +17,8 @@ import {
   type Character,
 } from "@elizaos/core";
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
+import { VideoService } from "@elizaos/plugin-node";
+import {BrowserService} from "@elizaos/plugin-node";
 import { createNodePlugin } from "@elizaos/plugin-node";
 import { solanaPlugin } from "@elizaos/plugin-solana";
 import fs from "fs";
@@ -15,10 +27,15 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { initializeDbCache } from "./cache/index.ts";
 import { janeBot } from "./character.ts";
-import { reactPro } from "./characterTutor.ts";
-import { pyAssist } from "./characterPyassist.ts";
+
+//  import { reactPro } from "./characterTutor.ts";
+//import { pyAssist } from "./characterPyassist.ts";
+//import { mainCharacter } from "./mainCharacter.ts";
+
 import { startChat } from "./chat/index.ts";
 import { initializeClients } from "./clients/index.ts";
+
+
 import {
   getTokenForProvider,
   loadCharacters,
@@ -26,6 +43,11 @@ import {
 } from "./config/index.ts";
 import { initializeDatabase } from "./database/index.ts";
 import express from 'express';
+//import puppeteer from 'puppeteer';
+//import FirecrawlApp, { CrawlParams, CrawlStatusResponse } from '@mendable/firecrawl-js';
+
+
+
 
 
 
@@ -35,6 +57,10 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+
+
+
+
 export const wait = (minTime: number = 1000, maxTime: number = 3000) => {
   const waitTime =
     Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime;
@@ -43,7 +69,7 @@ export const wait = (minTime: number = 1000, maxTime: number = 3000) => {
 
 let nodePlugin: any | undefined;
 
-export function createAgent(
+export async function createAgent(
   character: Character,
   db: any,
   cache: any,
@@ -54,8 +80,23 @@ export function createAgent(
     "Creating runtime for character",
     character.name,
   );
+  
 
   nodePlugin ??= createNodePlugin();
+
+  let goatPlugin: any | undefined;
+
+  // Initialize goat plugin if EVM private key is present
+  if (getSecret(character, "EVM_PRIVATE_KEY")) {
+      goatPlugin = await createGoatPlugin((secret) =>
+          getSecret(character, secret)
+      );
+  }
+  
+
+  // Initialize browser service
+  const browserService = new BrowserService();
+
 
   return new AgentRuntime({
     databaseAdapter: db,
@@ -67,6 +108,7 @@ export function createAgent(
       bootstrapPlugin,
       nodePlugin,
       character.settings?.secrets?.WALLET_PUBLIC_KEY ? solanaPlugin : null,
+      getSecret(character, "EVM_PROVIDER_URL") ? goatPlugin : null,
     ].filter(Boolean),
     providers: [],
     actions: [],
@@ -75,6 +117,23 @@ export function createAgent(
     cacheManager: cache,
   });
 }
+
+function getSecret(character: Character, secret: string) {
+  return character.settings?.secrets?.[secret] || process.env[secret];
+}
+
+
+interface NFTCollection {
+  name: string;
+  volume24h: number;
+  floorPrice: number;
+  items: number;
+  owners: number;
+ }
+
+ 
+
+
 
 async function startAgent(character: Character, directClient: DirectClient) {
   try {
@@ -93,9 +152,26 @@ async function startAgent(character: Character, directClient: DirectClient) {
     await db.init();
 
     const cache = initializeDbCache(character, db);
-    const runtime = createAgent(character, db, cache, token);
+    const runtime = await createAgent(character, db, cache, token);
 
     await runtime.initialize();
+
+    
+    const browserService = new BrowserService();
+
+    
+  
+
+    
+
+   
+    // Replace Puppeteer with Firecrawl
+   // const raribleContent = await getRaribleCollectionsWithFirecrawl();
+   // const processedContent = await browserService.getPageContent("https://rarible.com/drops", runtime);
+    
+   // console.log(processedContent);
+    // get page content
+    
 
     runtime.clients = await initializeClients(character, runtime);
 
@@ -136,11 +212,15 @@ const checkPortAvailable = (port: number): Promise<boolean> => {
 
 const startAgents = async () => {
   const directClient = new DirectClient();
+ // const directClient2 = new DirectClient2();
+  
+
+
   let serverPort = parseInt(settings.SERVER_PORT || "3000");
   const args = parseArguments();
 
   let charactersArg = args.characters || args.character;
-  let characters = [pyAssist];
+  let characters = [janeBot];
 
   console.log("charactersArg", charactersArg);
   if (charactersArg) {
@@ -167,7 +247,7 @@ const startAgents = async () => {
   };
 
   directClient.start(serverPort);
-
+ // directClient2.start(serverPort);
   if (serverPort !== parseInt(settings.SERVER_PORT || "3000")) {
     elizaLogger.log(`Server started on alternate port ${serverPort}`);
   }
@@ -184,3 +264,4 @@ startAgents().catch((error) => {
   elizaLogger.error("Unhandled error in startAgents:", error);
   process.exit(1);
 });
+

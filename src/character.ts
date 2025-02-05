@@ -1,18 +1,21 @@
 import { Character, ModelProviderName, Clients } from "@elizaos/core";
+import  createGoatPlugin  from "@elizaos/plugin-goat";
 
 
 
 export const janeBot: Character = {
   name: "lina",
   clients: [Clients.TELEGRAM],
-  modelProvider: ModelProviderName.OPENAI,
+  modelProvider: ModelProviderName.ANTHROPIC,
+  
   settings: {
     secrets: {
       OPENAI_API_KEY: process.env.OPENAI_API_KEY,
       TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
       TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
-     // DISCORD_BOT_TOKEN: process.env.DISCORD_BOT_TOKEN,
-     // DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
+      ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
+      DISCORD_BOT_TOKEN: process.env.DISCORD_BOT_TOKEN,
+      DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     },
   },
   system: "Roleplay as Angelica, an expert educational AI assistant focused on curriculum development and student assessment.",
@@ -129,7 +132,7 @@ export const janeBot: Character = {
   ],
   postExamples: [], // Add this property
   // Add this property
-  plugins: []
+  plugins: [],
  // Add this property
  
 };

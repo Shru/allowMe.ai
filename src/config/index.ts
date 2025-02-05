@@ -1,4 +1,3 @@
-
 import { Character,  settings, validateCharacterConfig } from "@elizaos/core";
 import fs from "fs";
 import path from "path";
@@ -115,3 +114,8 @@ export function getTokenForProvider(
      
 }
 }
+
+export const REQUIRED_ENV_VARS = [
+  // ... existing required vars ...
+  'FIRECRAWL_API_KEY',
+] as const;
