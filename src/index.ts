@@ -14,6 +14,8 @@ import {
   elizaLogger,
   settings,
   stringToUuid,
+  defaultCharacter,
+  validateCharacterConfig,
   type Character,
 } from "@elizaos/core";
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
@@ -28,7 +30,7 @@ import { fileURLToPath } from "url";
 import { initializeDbCache } from "./cache/index.ts";
 import { janeBot } from "./character.ts";
 
-//  import { reactPro } from "./characterTutor.ts";
+  import { reactPro } from "./characterTutor.ts";
 //import { pyAssist } from "./characterPyassist.ts";
 //import { mainCharacter } from "./mainCharacter.ts";
 
@@ -121,6 +123,94 @@ export async function createAgent(
 function getSecret(character: Character, secret: string) {
   return character.settings?.secrets?.[secret] || process.env[secret];
 }
+function tryLoadFile(filePath: string): string | null {
+	try {
+		return fs.readFileSync(filePath, "utf8")
+	} catch (e) {
+		return null
+	}
+}
+function mergeCharacters(base: Character, child: Character): Character {
+	const mergeObjects = (baseObj: any, childObj: any) => {
+		const result: any = {}
+		const keys = new Set([...Object.keys(baseObj || {}), ...Object.keys(childObj || {})])
+		keys.forEach((key) => {
+			if (typeof baseObj[key] === "object" && typeof childObj[key] === "object" && !Array.isArray(baseObj[key]) && !Array.isArray(childObj[key])) {
+				result[key] = mergeObjects(baseObj[key], childObj[key])
+			} else if (Array.isArray(baseObj[key]) || Array.isArray(childObj[key])) {
+				result[key] = [...(baseObj[key] || []), ...(childObj[key] || [])]
+			} else {
+				result[key] = childObj[key] !== undefined ? childObj[key] : baseObj[key]
+			}
+		})
+		return result
+	}
+	return mergeObjects(base, child)
+}
+
+async function handlePluginImporting(plugins: string[]) {
+	if (plugins.length > 0) {
+		elizaLogger.info("Plugins are: ", plugins)
+		const importedPlugins = await Promise.all(
+			plugins.map(async (plugin) => {
+				try {
+					const importedPlugin = await import(plugin)
+					const functionName = plugin.replace("@elizaos/plugin-", "").replace(/-./g, (x) => x[1].toUpperCase()) + "Plugin" // Assumes plugin function is camelCased with Plugin suffix
+					return importedPlugin.default || importedPlugin[functionName]
+				} catch (importError) {
+					elizaLogger.error(`Failed to import plugin: ${plugin}`, importError)
+					return [] // Return null for failed imports
+				}
+			})
+		)
+		return importedPlugins
+	} else {
+		return []
+	}
+}
+
+async function jsonToCharacter(filePath: string, character: any): Promise<Character> {
+	validateCharacterConfig(character)
+
+	// .id isn't really valid
+	const characterId = character.id || character.name
+	const characterPrefix = `CHARACTER.${characterId.toUpperCase().replace(/ /g, "_")}.`
+	const characterSettings = Object.entries(process.env)
+		.filter(([key]) => key.startsWith(characterPrefix))
+		.reduce((settings, [key, value]) => {
+			const settingKey = key.slice(characterPrefix.length)
+			return { ...settings, [settingKey]: value }
+		}, {})
+	if (Object.keys(characterSettings).length > 0) {
+		character.settings = character.settings || {}
+		character.settings.secrets = {
+			...characterSettings,
+			...character.settings.secrets,
+		}
+	}
+	// Handle plugins
+	character.plugins = await handlePluginImporting(character.plugins)
+	if (character.extends) {
+		elizaLogger.info(`Merging  ${character.name} character with parent characters`)
+		for (const extendPath of character.extends) {
+			const baseCharacter = await loadCharacter(path.resolve(path.dirname(filePath), extendPath))
+			character = mergeCharacters(baseCharacter, character)
+			elizaLogger.info(`Merged ${character.name} with ${baseCharacter.name}`)
+		}
+	}
+	return character
+}
+
+async function loadCharacter(filePath: string): Promise<Character> {
+	const content = tryLoadFile(filePath)
+	if (!content) {
+		throw new Error(`Character file not found: ${filePath}`)
+	}
+	const character = JSON.parse(content)
+	return jsonToCharacter(filePath, character)
+}
+
+
 
 
 interface NFTCollection {
@@ -134,6 +224,7 @@ interface NFTCollection {
  
 
 
+ 
 
 async function startAgent(character: Character, directClient: DirectClient) {
   try {
@@ -210,6 +301,10 @@ const checkPortAvailable = (port: number): Promise<boolean> => {
   });
 };
 
+//handle plugin importing when we start the agents
+
+const hasValidRemoteUrls = () => process.env.REMOTE_CHARACTER_URLS && process.env.REMOTE_CHARACTER_URLS !== "" && process.env.REMOTE_CHARACTER_URLS.startsWith("http")
+
 const startAgents = async () => {
   const directClient = new DirectClient();
  // const directClient2 = new DirectClient2();
@@ -220,7 +315,7 @@ const startAgents = async () => {
   const args = parseArguments();
 
   let charactersArg = args.characters || args.character;
-  let characters = [janeBot];
+  let characters = [defaultCharacter];
 
   console.log("charactersArg", charactersArg);
   if (charactersArg) {
@@ -246,9 +341,12 @@ const startAgents = async () => {
     return startAgent(character, directClient);
   };
 
+  
+
   directClient.start(serverPort);
  // directClient2.start(serverPort);
-  if (serverPort !== parseInt(settings.SERVER_PORT || "3000")) {
+  
+ if (serverPort !== parseInt(settings.SERVER_PORT || "3000")) {
     elizaLogger.log(`Server started on alternate port ${serverPort}`);
   }
 

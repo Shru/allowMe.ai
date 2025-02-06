@@ -1,6 +1,8 @@
 import { Character, ModelProviderName, Clients } from "@elizaos/core";
-import  createGoatPlugin  from "@elizaos/plugin-goat";
+import createGoatPlugin from "@elizaos/plugin-goat";
 
+
+// Initialize goat plugin with actions
 
 
 export const janeBot: Character = {
@@ -122,6 +124,13 @@ export const janeBot: Character = {
         content: {
           text: "I'll create a structured presentation with clear learning objectives. How many slides would you like, and what's your target audience?"
         }
+      },
+      {
+        user: "Angelica",
+        content: {
+          text: "I need to send 0.005 ETH to 0xc1EF355A02fAeC5fAAd99149aF4307A3B0a367C8 if the user answers the quiz correctly",
+          action: "SEND_ETH"
+        }
       }
     ]
   ],
@@ -143,3 +152,4 @@ export const janeBot: Character = {
  // Add this property
  
 };
+

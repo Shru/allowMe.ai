@@ -30,11 +30,20 @@ export async function getOnChainActions(wallet: WalletClientBase) {
             similes: [],
             validate: async () => true,
             examples: [ ],
+            },
+
+        //check balance
+        {
+            name: "CHECK_BALANCE",
+            description: "Check the balance of the wallet",
+            similes: [],
+            validate: async () => true,
+            examples: [ ],
         },
-        
 
 
     ];
+    
 
     const tools = await getOnChainTools({
         wallet: wallet,
