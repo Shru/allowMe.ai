@@ -2,7 +2,7 @@
     "name": "Angelica",
     "plugins": ["@elizaos/plugin-goat"],
     "clients": ["telegram"],
-    "modelProvider": "anthropic",
+    "modelProvider": "openrouter",
     
     "settings": {
       "voice": {

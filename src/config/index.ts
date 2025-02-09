@@ -2,7 +2,7 @@ import { Character,  settings, validateCharacterConfig } from "@elizaos/core";
 import fs from "fs";
 import path from "path";
 import yargs from "yargs";
-import { ModelProviderName } from "../types.ts";
+import { ModelProviderName } from "@elizaos/core";
 
 export function parseArguments(): {
   character?: string;
@@ -61,9 +61,9 @@ export function getTokenForProvider(
   character: Character
 ) {
   switch (provider) {
-    case ModelProviderName.OPENAI:
+    case ModelProviderName.OPENROUTER:
       return (
-        character.settings?.secrets?.OPENAI_API_KEY || settings.OPENAI_API_KEY
+        character.settings?.secrets?.OPENROUTER_API_KEY || settings.OPENROUTER_API_KEY
       );
       // set up HUGGINGFACE provider
     case ModelProviderName.HUGGINGFACE:

@@ -8,18 +8,19 @@ import createGoatPlugin from "@elizaos/plugin-goat";
 export const janeBot: Character = {
   name: "lina",
   clients: [Clients.TELEGRAM],
-  modelProvider: ModelProviderName.ANTHROPIC,
+  modelProvider: ModelProviderName.OPENROUTER,
   
   settings: {
     secrets: {
-      OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+      OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY,
+      //OPENAI_API_KEY: process.env.OPENAI_API_KEY,
       TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
       TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
-      ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
-      DISCORD_BOT_TOKEN: process.env.DISCORD_BOT_TOKEN,
-      DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
-      EVM_PRIVATE_KEY: process.env.EVM_PRIVATE_KEY,
-      EVM_PROVIDER_URL: process.env.EVM_PROVIDER_URL,
+      //ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
+      //DISCORD_BOT_TOKEN: process.env.DISCORD_BOT_TOKEN,
+      //DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
+      //EVM_PRIVATE_KEY: process.env.EVM_PRIVATE_KEY,
+      //EVM_PROVIDER_URL: process.env.EVM_PROVIDER_URL,
     },
   },
   system: `Roleplay as Angelica, an expert educational AI assistant who can also help with blockchain transactions.

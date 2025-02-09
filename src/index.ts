@@ -30,7 +30,7 @@ import { fileURLToPath } from "url";
 import { initializeDbCache } from "./cache/index.ts";
 import { janeBot } from "./character.ts";
 
-  import { reactPro } from "./characterTutor.ts";
+//import { reactPro } from "./characterTutor.ts";
 //import { pyAssist } from "./characterPyassist.ts";
 //import { mainCharacter } from "./mainCharacter.ts";
 
