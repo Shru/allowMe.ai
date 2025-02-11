@@ -3,14 +3,14 @@
 AllowMe.ai is an AI-powered educational finance platform that automates allowance distribution based on verified educational achievements. Built on ElizaOS's agent framework and Polygon blockchain.
 
 
-Mission
+## Mission
 
 To create an autonomous, transparent, and incentive-driven learning ecosystem where:
 ✅ AI tutors help students fill knowledge gaps.
 ✅ Smart contracts unlock funds based on verified educational achievements.
 ✅ Parents have full financial oversight while allowing children autonomy in everyday transactions.
 
-Core Product Offerings:
+## Core Product Offerings:
 
 1. TutorAgent - AI - Powered Learning & Assesment
 
