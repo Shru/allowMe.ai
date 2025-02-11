@@ -2,6 +2,64 @@
 
 AllowMe.ai is an AI-powered educational finance platform that automates allowance distribution based on verified educational achievements. Built on ElizaOS's agent framework and Polygon blockchain.
 
+
+Mission
+
+To create an autonomous, transparent, and incentive-driven learning ecosystem where:
+✅ AI tutors help students fill knowledge gaps.
+✅ Smart contracts unlock funds based on verified educational achievements.
+✅ Parents have full financial oversight while allowing children autonomy in everyday transactions.
+
+Core Product Offerings:
+
+1. TutorAgent - AI - Powered Learning & Assesment
+
+An AI-driven tutoring assistant that helps students:
+✅ Generate Custom Quizzes – AI crafts multiple-choice tests tailored to skill level.
+✅ Identify Learning Gaps – AI analyzes responses to highlight weak areas.
+✅ Provide Smart Recommendations – Personalized study materials & interventions.
+💰 Subscription Model – $10/month for access to AI-driven learning.
+
+
+2. Parental - Controlled Wallet & Allowance System
+
+A smart contract-powered finance system that automates allowance distribution based on verified achievements.
+✅ Unlock Funds Upon Task Completion – Parents set learning or health-based goals (e.g., “complete a quiz,” “walk 2,000 steps”) before funds are released.
+✅ Day-to-Day Financial Autonomy for Kids – Small transactions approved automatically, while parents oversee larger ones.
+✅ Blockchain Transparency – Funds are managed through Web3 wallets with full parental oversight.
+💰 Premium Plan – $20/month for financial automation
+
+
+
+Core Problem
+Parents and trustees struggle to:
+Motivate children to learn valuable skills
+Control digital spending (Robux, gaming, etc.)
+Verify actual achievements
+Balance rewards with development
+Implement consistent reward systems
+Track progress objectively
+
+Solution
+ provides:
+AI Assessment Engine
+Generates personalized challenges and quizzes
+Validates achievements through smart verification
+Adapts difficulty based on progress
+Provides immediate feedback and guidance
+Smart Contract Wallet
+Automated reward distribution
+Achievement-based fund unlocking
+Parental controls and oversight
+Customizable spending limits
+Multi-signature security
+Achievement System
+Educational milestones (coding, math, science)
+Health goals (exercise, nutrition)
+Skill development (financial literacy, programming)
+Personal development targets
+
+
 ## 🎯 Overview
 
 AllowMe.ai transforms traditional allowance systems by:
