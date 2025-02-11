@@ -30,37 +30,26 @@ A smart contract-powered finance system that automates allowance distribution ba
 💰 Premium Plan – $20/month for financial automation
 
 
+## Core Problem
 
-Core Problem
 Parents and trustees struggle to:
+
 Motivate children to learn valuable skills
+
 Control digital spending (Robux, gaming, etc.)
+
 Verify actual achievements
+
 Balance rewards with development
+
 Implement consistent reward systems
+
 Track progress objectively
 
-Solution
- provides:
-AI Assessment Engine
-Generates personalized challenges and quizzes
-Validates achievements through smart verification
-Adapts difficulty based on progress
-Provides immediate feedback and guidance
-Smart Contract Wallet
-Automated reward distribution
-Achievement-based fund unlocking
-Parental controls and oversight
-Customizable spending limits
-Multi-signature security
-Achievement System
-Educational milestones (coding, math, science)
-Health goals (exercise, nutrition)
-Skill development (financial literacy, programming)
-Personal development targets
 
 
-## 🎯 Overview
+
+## 🎯 Solution
 
 AllowMe.ai transforms traditional allowance systems by:
 - Creating AI-verified educational achievements
