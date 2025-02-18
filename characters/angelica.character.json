@@ -18,8 +18,8 @@
         "quiz_threshold": 3
       },
       "secrets": {
-       "EVM_PRIVATE_KEY": "0xdbbed33fe88229cb306cfa0b8a1814915d889614ecbb721c8bc97e15ff636d10",
-       "EVM_PROVIDER_URL": "https://sepolia.infura.io/v3/your-infura-project-id"
+       "EVM_PRIVATE_KEY": "",
+       "EVM_PROVIDER_URL": ""
       }
     },
     "actions": [
