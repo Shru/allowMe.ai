@@ -1,116 +1,108 @@
-# Eliza GOAT XMAS Agent
-*Built with GOAT 🐐*
+# AllowMe.ai
 
-This fork is a **simplified example of Eliza focused on executing transactions onchain on Mode** using [GOAT](https://github.com/goat-sdk/goat-sdk).
+AllowMe.ai is an AI-powered educational finance platform that automates allowance distribution based on verified educational achievements. Built on ElizaOS's agent framework and Polygon blockchain.
 
-**Onchain actions**:
-- Mint NFTs
-- Check the latest trending tokens
-- Purchase, trade them, and much more.
+## 🎯 Overview
 
-Tech stack:
-- [Eliza](https://github.com/ai16z/eliza) - The AI agent framework
-- [GOAT](https://github.com/goat-sdk/goat-sdk) - The open-source framework for connecting AI agents to any onchain app
+AllowMe.ai transforms traditional allowance systems by:
+- Creating AI-verified educational achievements
+- Automating reward distribution via smart contracts
+- Teaching financial literacy through hands-on experience
+- Providing secure parental controls and oversight
 
-**Support**
-- [Discord](https://discord.gg/goat-sdk)
+## 🛠️ Technical Architecture
+
+- **ElizaOS Integration**
+ - Assessment Agent: Creates and validates educational activities
+ - Reward Agent: Manages automated allowance distribution
+ - Mass Payments Plugin: Handles on-chain transactions
+ - Goat-Plugin
+
+- **Smart Contracts**
+ - Achievement verification
+ - Automated rewards
+ - Parental controls
+ - Spending limits
+
+## 🚀 Features
+
+### For Parents/Trustees
+- Custom educational goal setting
+- Spending parameter controls 
+- Progress monitoring dashboard
+- Transaction oversight
+
+### For Students
+- Educational achievement tracking
+- Digital wallet management
+- Progress visualization
+- Reward history
 
 
-## Running the project
-### Requirements
-- Node.js 23.3.0+
 
-### Set up
+## 💻 Integrations 
 
-1. Clone the repository
-```bash
-git clone https://github.com/goat-sdk/xmas-agent.git
+
+
+
+
+# Client Integrated 
+
+https://github.com/elizaOS/eliza/tree/main/packages/client-telegram
+
+
+
+
+
+# PlugIns To be Integrated 
+
+https://github.com/coinbase/cdp-agentkit-nodejs/tree/5d686bbfbc5607d7b7d0f188c8c120d623e5aa32/cdp-agentkit-core
+
+https://github.com/elizaOS/eliza/tree/main/packages/plugin-coinbase
+
+https://github.com/elizaOS/eliza/blob/main/packages/plugin-coinbase/src/plugins/massPayments.ts
+
+https://github.com/elizaOS/eliza/blob/main/packages/plugin-goat/src/wallet.ts
+
+## Edit the character files
+
+Open `src/character.ts` to modify the default character. Uncomment and edit.
+
+### Custom characters
+
+To load custom characters instead:
+- Use `pnpm start --characters="path/to/your/character.json"`
+- Multiple character files can be loaded simultaneously
+
+### Add clients
+```
+clients: [Clients.TWITTER, Clients.DISCORD],
 ```
 
-2. Go into the project directory
-```bash
-cd xmas-agent
-```
+## Duplicate the .env.example template
 
-3. Install the dependencies
-```bash
-pnpm install
-```
-
-4. Run `pnpm build`
-
-5. Copy the .env.example file to .env:
 ```bash
 cp .env.example .env
 ```
 
-6. Get an OpenAI API key and fill in the `OPENAI_API_KEY` in the .env file
+\* Fill out the .env file with your own values.
 
-### Giving the agent a wallet
-
-1. This example uses a key pair wallet. Save the key and fill in the following in the .env file:
-    - `EVM_PRIVATE_KEY=`
-    - `EVM_PROVIDER_URL=
-
-### Running the agent
-
-1. You can now run the agent with the command `pnpm start --character="characters/xmas-goat.character.json"`
-2. In a different terminal run `pnpm start:client` to start the chat interface
-3. Go to `http://localhost:5173` to chat with your agent
-
-
-## Configuring the project
-### The character
-- You can see the definition of your character in the `characters/xmas-goat.character.json` file.
-- This project gives you a simple example character to get you started. This allows you to easily add onchain actions and test them out while increasing the complexity of your agent step by step. Keep adding and modifying the bio and tone of the character to make it your own.
-
-### Eliza
-- This is an Eliza fork so you can do pretty much everything you can do with Eliza. Check out the [Eliza docs](https://ai16z.github.io/eliza/) for more information on how to integrate your agent with Twitter, Discord, etc.
-
-### Onchain actions with GOAT
-- The GOAT plugin (`packages/plugin-goat`) uses GOAT to add all onchain functionality to the agent. Within the `actions.ts` file of the plugin you can add any GOAT plugins you need or even create your own. Check out the [GOAT docs](https://ohmygoat.dev) for more information.
-```typescript
-export async function getOnChainActions(wallet: WalletClientBase) {
-    const actionsWithoutHandler = [
-        {
-            name: "SEND_ETH",
-            description: "Send ETH to a given address",
-            similes: [],
-            validate: async () => true,
-            examples: [],
-        },
-        {
-            name: "SEND_USDC",
-            description: "Send USDC to a given address",
-            similes: [],
-            validate: async () => true,
-            examples: [],
-        },
-        {
-            name: "GET_USDC_BALANCE",
-            description: "Get the balance of USDC in the wallet",
-            similes: [],
-            validate: async () => true,
-            examples: [],
-        },
-        // 1. Add your actions here
-    ];
-
-    const tools = await getOnChainTools({
-        wallet: wallet,
-        // 2. Configure the plugins you need to perform those actions
-        plugins: [sendETH(), erc20({ tokens: [USDC] })],
-    });
-
-    // 3. Let GOAT handle all the actions
-    return actionsWithoutHandler.map((action) => ({
-        ...action,
-        handler: getActionHandler(action.name, action.description, tools),
-    }));
-}
+### Add login credentials and keys to .env
+```
+DISCORD_APPLICATION_ID="discord-application-id"
+DISCORD_API_TOKEN="discord-api-token"
+...
+OPENROUTER_API_KEY="sk-xx-xx-xxx"
+...
+TWITTER_USERNAME="username"
+TWITTER_PASSWORD="password"
+TWITTER_EMAIL="your@email.com"
 ```
 
-## Tips for troubleshooting
-1. When making changes to any package (e.g the Crossmint plugin), remember to run `pnpm build` to update the project.
-2. To see why the agent is making a certain decision, add console logs to see the prompts and responses that it is getting on every interaction. For example. if you are using the direct client that would be [here](https://github.com/goat-sdk/eliza-solana-example/blob/main/packages/client-direct/src/index.ts#L135).
-3. You can also copy the agent prompts that you log and play with them in ChatGPT to see how you could improve them.
+## Install dependencies and start your agent
+
+```bash
+pnpm i && pnpm start
+```
+Note: this requires node to be at least version 22 when you install packages and run the agent.
+
